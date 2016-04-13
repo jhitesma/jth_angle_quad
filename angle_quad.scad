@@ -9,7 +9,7 @@ coupler_length = 60;
 
 
 // Center Section
-*color ("red") difference() {
+color ("red") difference() {
     rotate([0,0,45]) {
 
         // Top plate 
@@ -17,7 +17,7 @@ coupler_length = 60;
             translate([0,0,21]) cube([84,84,2.5],true);
 
             // fancy top cutout
-            *for(r=[0:15:359]) {
+            for(r=[0:15:359]) {
                 rotate ([0,0,r]) translate([0,0,19]) cube([40,40,15],true);
             }
 
@@ -50,13 +50,13 @@ coupler_length = 60;
 
 
 // Arms
-*difference() {
+difference() {
     quad_arms(arm_size,arm_length,arm_distance,arm_mount_hole_diam,arm_hole_from_edge,arm_hole_distance);
     arm_mount_holes(arm_size,arm_length,arm_mount_hole_diam,arm_hole_from_edge,arm_hole_distance);
 }
 
 // Motor Mounts
-*motor_mounts(arm_size,arm_length,arm_distance,arm_mount_hole_diam,arm_hole_from_edge,arm_hole_distance);
+motor_mounts(arm_size,arm_length,arm_distance,arm_mount_hole_diam,arm_hole_from_edge,arm_hole_distance);
 
 
 // Angle block
