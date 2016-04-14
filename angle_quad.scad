@@ -144,16 +144,8 @@ module motor_mounts(s,l,d,ahd,ahfe,ahfed){
 };
 
 
-/*
-module motor_mount(s,l,d,ahd,ahfe,ahfed,r) { 
-    rotate([90,-10,r]) translate([l+5,5,0]) color("blue")
-    //include<1806_mount_mod.scad>;
-    import("generated_stls/1806_mount_mod.stl");
-}
-*/
-
 module motor_mount(s,l,d,ahd,ahfe,ahfed,r) { 
     rotate([0,-10,r]) translate([l+20,0,s-2]) rotate([0,180,0]) color("blue")
-    //include<jth_2204_motor_mount.scad>;
+    //include<"jth_motor_mount.scad">;
     import("generated_stls/jth_2204_motor_mount.stl");
 }
