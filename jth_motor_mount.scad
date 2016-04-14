@@ -38,12 +38,9 @@ difference() {
             translate ([20,0,10]) cube([60,arm_outside_diameter,arm_outside_diameter],true);
         }
     }
-    
     translate([0,0,0]) cylinder(8,3,3,true);
     motor_screws(50);
-
 }
-
 
 module motor_posts(sl=10) {
     rotate([0,0,45]) {
@@ -57,7 +54,6 @@ module motor_posts(sl=10) {
     translate([0,-Motor_Bolt_Y_spacing/2,0]) cylinder(sl,Screw_Size,Screw_Size,true);
     }
 }
-
 
 module motor_screws(sl=10) {
     rotate([0,0,45]) {
