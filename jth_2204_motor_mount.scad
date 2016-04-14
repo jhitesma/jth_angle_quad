@@ -1,10 +1,12 @@
-mb_x = 16;
-mb_y = 19;
-ss = 3;
+mb_x = 16; // Motor Bolts X distance
+mb_y = 19; // Motor Bolts Y distance
+ss = 3; // Screw Size
+$fs = 0.2;
 
 difference() {
     union() {
         cylinder(5,16,16,true);
+        translate([-11,0,5]) cube([1,20,5],true);
         difference() {
             union() {
                 difference() {
@@ -17,12 +19,12 @@ difference() {
                 }
                 translate([-10,0,10.7]) sphere(10);
             }
-            translate ([20,0,10]) cube([60,14,14],true);
-            translate([0,0,10]) motor_posts(20);
+            translate([0,0,30]) motor_posts(25);
+            translate ([20,0,10]) cube([60,13,13],true);
         }
-        difference() {
-            translate([0,0,10]) motor_posts(15);
-            translate ([20,0,10]) cube([60,14,14],true);
+        *difference() {
+            translate([0,0,05]) motor_posts(5);
+            translate ([20,0,10]) cube([60,13,13],true);
         }
     }
     
@@ -33,16 +35,28 @@ difference() {
 
 
 module motor_posts(sl=10) {
-    translate([mb_x/2,mb_y/2,0]) cylinder(sl,ss,ss,true);
-    translate([-mb_x/2,-mb_y/2,0]) cylinder(sl,ss,ss,true);
-    translate([-mb_x/2,mb_y/2,0]) cylinder(sl,ss,ss,true);
-    translate([mb_x/2,-mb_y/2,0]) cylinder(sl,ss,ss,true);
+    rotate([0,0,45]) {
+    // NE
+    translate([mb_x/2,0,0]) cylinder(sl,ss,ss,true);
+    // NW
+    translate([-mb_x/2,0,0]) cylinder(sl,ss,ss,true);
+    // SE
+    translate([0,mb_y/2,0]) cylinder(sl,ss,ss,true);
+    // SW
+    translate([0,-mb_y/2,0]) cylinder(sl,ss,ss,true);
+    }
 }
 
 
 module motor_screws(sl=10) {
-    translate([mb_x/2,mb_y/2,0]) cylinder(sl,ss/2,ss/2,true);
-    translate([-mb_x/2,-mb_y/2,0]) cylinder(sl,ss/2,ss/2,true);
-    translate([-mb_x/2,mb_y/2,0]) cylinder(sl,ss/2,ss/2,true);
-    translate([mb_x/2,-mb_y/2,0]) cylinder(sl,ss/2,ss/2,true);
+    rotate([0,0,45]) {
+    // NE
+    translate([mb_x/2,0,0]) cylinder(sl,ss/2,ss/2,true);
+    // NW
+    translate([-mb_x/2,0,0]) cylinder(sl,ss/2,ss/2,true);
+    // SE
+    translate([0,mb_y/2,0]) cylinder(sl,ss/2,ss/2,true);
+    // SW
+    translate([0/2,-mb_y/2,0]) cylinder(sl,ss/2,ss/2,true);
+    }
 }
