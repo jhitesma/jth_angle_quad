@@ -6,7 +6,7 @@ $fs = 0.2;
 difference() {
     union() {
         cylinder(5,16,16,true);
-        translate([-11,0,5]) cube([1,20,5],true);
+*        translate([-10,0,5]) cube([1,20,5],true);
         difference() {
             union() {
                 difference() {
@@ -17,7 +17,7 @@ difference() {
                         translate([5,0,0]) cube([40,20,20],true);
                     }
                 }
-                translate([-10,0,10.7]) sphere(10);
+                translate([-10,0,10.7]) sphere(9.5);
             }
             translate([0,0,30]) motor_posts(25);
             translate ([20,0,10]) cube([60,13,13],true);
