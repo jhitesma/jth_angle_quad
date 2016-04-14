@@ -9,15 +9,15 @@ coupler_length = 60;
 
 
 // Center Section
-*color ("red") difference() {
+color ("red") difference() {
     rotate([0,0,45]) {
 
-        // Top plate 
-        difference() {            
+        // Top plate
+        difference() {
             translate([0,0,21]) cube([84,84,2.5],true);
 
             // fancy top cutout
-            *for(r=[0:15:359]) {
+            for(r=[0:15:359]) {
                 rotate ([0,0,r]) translate([0,0,19]) cube([40,40,15],true);
             }
 
@@ -26,7 +26,7 @@ coupler_length = 60;
                 rotate ([0,0,r+45]) {
                     translate([64,0,20]) cube([30,30,20],true);
                 }
-            }           
+            }
         }
 
         // Bottom plate
@@ -50,13 +50,13 @@ coupler_length = 60;
 
 
 // Arms
-*difference() {
+difference() {
     quad_arms(arm_size,arm_length,arm_distance,arm_mount_hole_diam,arm_hole_from_edge,arm_hole_distance);
     arm_mount_holes(arm_size,arm_length,arm_mount_hole_diam,arm_hole_from_edge,arm_hole_distance);
 }
 
 // Motor Mounts
-*motor_mounts(arm_size,arm_length,arm_distance,arm_mount_hole_diam,arm_hole_from_edge,arm_hole_distance);
+motor_mounts(arm_size,arm_length,arm_distance,arm_mount_hole_diam,arm_hole_from_edge,arm_hole_distance);
 
 
 // Angle block
@@ -113,7 +113,7 @@ module quad_arms(s,l,d,ahd,ahfe,ahfed){
 };
 
 module quad_arm(s,l,d,ahd,ahfe,ahfed,r) {
-    rotate([0,0,r]) 
+    rotate([0,0,r])
     translate([0,-d/2,0]) rotate([80,0,0]) translate([0,s/2,l/2])
     difference() {
         color("BurlyWood") cube([s,s,l],true);
@@ -127,13 +127,13 @@ module arm_couplers(s,l,d,ahd,ahfe,ahfed,cl,ww){
     for(r=[0:90:359]){
         difference() {
             color ("Blue", 0.7) arm_coupler(s,l,d,ahd,ahfe,ahfed,r,cl,ww);
-            quad_arm(s,l,d,ahd,ahfe,ahfed,r);            
+            quad_arm(s,l,d,ahd,ahfe,ahfed,r);
         }
     }
 };
 
 module arm_coupler(s,l,d,ahd,ahfe,ahfed,r,cl,ww) {
-    rotate([0,0,r]) 
+    rotate([0,0,r])
     translate([0,cl/2]) rotate([80,0,0]) translate([0,-s/2+ww+3.5,l/2]) cube([s+ww,s+ww+14,cl],true);
 }
 
@@ -144,8 +144,8 @@ module motor_mounts(s,l,d,ahd,ahfe,ahfed){
 };
 
 
-module motor_mount(s,l,d,ahd,ahfe,ahfed,r) { 
-    rotate([90,-10,r]) translate([l+5,5,0]) color("blue")
-    //include<1806_mount_mod.scad>;
-    import("generated_stls/1806_mount_mod.stl");
+module motor_mount(s,l,d,ahd,ahfe,ahfed,r) {
+    rotate([0,-10,r]) translate([l+20,0,s-2]) rotate([0,180,0]) color("blue")
+    //include<"jth_motor_mount.scad">;
+    import("generated_stls/jth_2204_motor_mount.stl");
 }
