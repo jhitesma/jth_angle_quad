@@ -6,4 +6,3 @@ This is based on my [UBMQ (Ultra Budget Mini Quad)] (http://forum.flitetest.com/
 The arms are angled 10% inwards by the printed center section.  Each 1/2" wood dowel arm is secured with two bolts that run through it but they should be a tight fit to begin.  The printed section is primarialy to hold the angle on the arms, the plates and bolts should give most of the strength. 
 
 Motor mount was [shared on Thingiverse](http://www.thingiverse.com/thing:1490002 title="Motor Mount") already.  
-
