@@ -10,60 +10,55 @@ Plate_Diameter = 32;
 /* [Arm Size] */
 arm_outside_diameter = 13;
 
+/* [Shell Size] */
+Shell_OD = 20;
+
 /* [Hidden] */
 $fs = 0.2;
 Plate_Radius = Plate_Diameter/2;
 
 
 difference() {
-    union() {
-        cylinder(Plate_Thickness,Plate_Radius,Plate_Radius,true);
+    hull() {
         difference() {
-            union() {
-                difference() {
-                    translate([3,0,11]) cube([26,19,19],true);
-                    difference() {
-                        translate([5,0,11]) cube([32,20,20],true);
-                        translate([5,0,11]) rotate([0,90,0]) cylinder(32,9.7,12,true);
-                        translate([5,0,0]) cube([40,20,20],true);
-                    }
-                }
-                translate([-10,0,10.7]) sphere(10);
+            // Shell
+            translate([3,0,11]) cube([26,Shell_OD,Shell_OD],true);
+            // Shell clipping shape
+            difference() {
+                translate([5,0,11]) cube([32,Shell_OD+1,Shell_OD+1],true);      
+                translate([5,0,11]) rotate([0,90,0]) cylinder(32,9.7,12,true);
+                translate([5,0,0]) cube([40,Shell_OD+1,Shell_OD+1],true);
             }
-            translate([0,0,30]) motor_posts(25);
-            translate ([20,0,10]) cube([60,arm_outside_diameter,arm_outside_diameter],true);
         }
-        *difference() {
-            translate([0,0,05]) motor_posts(5);
-            translate ([20,0,10]) cube([60,arm_outside_diameter,arm_outside_diameter],true);
-        }
+        // Motor Plate
+        cylinder(Plate_Thickness,Plate_Radius,Plate_Radius,true);
+        // End Ball
+        translate([-Shell_OD/2,0,Shell_OD/2]) sphere(Shell_OD/2);
     }
-    translate([0,0,0]) cylinder(8,3,3,true);
+    // Remove arm material
+    translate ([20,0,10]) cube([60,arm_outside_diameter,arm_outside_diameter],true);
+    // Remove motor post material
+    translate([0,0,30]) motor_posts(25);
+    // Remove motor screw material
     motor_screws(50);
+    // Remove motor shaft clerance
+    translate([0,0,0]) cylinder(8,3,3,true);
 }
 
 module motor_posts(sl=10) {
     rotate([0,0,45]) {
-    // NE
     translate([Motor_Bolt_X_spacing/2,0,0]) cylinder(sl,Screw_Size,Screw_Size,true);
-    // NW
     translate([-Motor_Bolt_X_spacing/2,0,0]) cylinder(sl,Screw_Size,Screw_Size,true);
-    // SE
     translate([0,Motor_Bolt_Y_spacing/2,0]) cylinder(sl,Screw_Size,Screw_Size,true);
-    // SW
     translate([0,-Motor_Bolt_Y_spacing/2,0]) cylinder(sl,Screw_Size,Screw_Size,true);
     }
 }
 
 module motor_screws(sl=10) {
     rotate([0,0,45]) {
-    // NE
     translate([Motor_Bolt_X_spacing/2,0,0]) cylinder(sl,Screw_Size/2,Screw_Size/2,true);
-    // NW
     translate([-Motor_Bolt_X_spacing/2,0,0]) cylinder(sl,Screw_Size/2,Screw_Size/2,true);
-    // SE
     translate([0,Motor_Bolt_Y_spacing/2,0]) cylinder(sl,Screw_Size/2,Screw_Size/2,true);
-    // SW
     translate([0/2,-Motor_Bolt_Y_spacing/2,0]) cylinder(sl,Screw_Size/2,Screw_Size/2,true);
     }
 }

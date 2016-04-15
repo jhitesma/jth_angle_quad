@@ -1,4 +1,4 @@
-arm_size = 14;
+arm_size = 13.1;
 arm_length = 102;
 arm_distance = 60;
 arm_mount_hole_diam = 1.6;
@@ -7,14 +7,13 @@ arm_hole_distance = 10;
 wall_width = 4;
 coupler_length = 60;
 
-
 // Center Section
 color ("red") difference() {
     rotate([0,0,45]) {
 
         // Top plate
         difference() {
-            translate([0,0,21]) cube([84,84,2.5],true);
+            translate([0,0,21]) cube([82,82,2.5],true);
 
             // fancy top cutout
             for(r=[0:15:359]) {
@@ -31,7 +30,7 @@ color ("red") difference() {
 
         // Bottom plate
         difference() {
-            translate([0,0,-2]) cube([84,84,2.5],true);
+            translate([0,0,-1.4]) cube([86,86,2.5],true);
 
             // clip the corners
             for(r=[0:90:359]){
@@ -66,7 +65,7 @@ arm_mount_holes(arm_size,arm_length,arm_mount_hole_diam,arm_hole_from_edge,arm_h
 fc_mount_holes(arm_size,arm_length,arm_mount_hole_diam,arm_hole_from_edge,arm_hole_distance);
 fc_mount_curves(arm_size,arm_length,arm_mount_hole_diam,arm_hole_from_edge,arm_hole_distance);
 rotate([0,0,0]) translate([0,0,19]) color("Grey") cube([42,42,27],true);
-    translate([0,0,-8]) cube([150,150,14],true);
+    translate([0,0,-7]) cube([150,150,14],true);
     translate([0,0,35]) cube([200,200,30],true);
 
 }
