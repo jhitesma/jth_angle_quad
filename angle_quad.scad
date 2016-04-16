@@ -1,14 +1,15 @@
 arm_size = 13.1;
 arm_length = 102;
 arm_distance = 60;
-arm_mount_hole_diam = 1.6;
+arm_mount_hole_diam = 1.7;
 arm_hole_from_edge = 8;
 arm_hole_distance = 10;
 wall_width = 4;
 coupler_length = 60;
+$fs=0.5;
 
 // Center Section
-color ("red") difference() {
+*color ("red") difference() {
     rotate([0,0,45]) {
 
         // Top plate
@@ -49,13 +50,13 @@ color ("red") difference() {
 
 
 // Arms
-difference() {
+*difference() {
     quad_arms(arm_size,arm_length,arm_distance,arm_mount_hole_diam,arm_hole_from_edge,arm_hole_distance);
     arm_mount_holes(arm_size,arm_length,arm_mount_hole_diam,arm_hole_from_edge,arm_hole_distance);
 }
 
 // Motor Mounts
-motor_mounts(arm_size,arm_length,arm_distance,arm_mount_hole_diam,arm_hole_from_edge,arm_hole_distance);
+*motor_mounts(arm_size,arm_length,arm_distance,arm_mount_hole_diam,arm_hole_from_edge,arm_hole_distance);
 
 
 // Angle block
