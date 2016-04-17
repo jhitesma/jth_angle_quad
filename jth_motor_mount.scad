@@ -42,7 +42,7 @@ difference() {
     // Remove motor screw material
     motor_screws(50);
     // Remove motor shaft clerance
-    translate([0,0,0]) cylinder(8,3,3,true);
+    translate([0,0,0]) cylinder(8,4,4,true);
 }
 
 module motor_posts(sl=10) {
