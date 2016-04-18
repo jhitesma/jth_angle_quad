@@ -1,10 +1,10 @@
 /* [Motor Bolts] */
 Motor_Bolt_X_spacing = 16; // Motor Bolts X distance
 Motor_Bolt_Y_spacing = 19; // Motor Bolts Y distance
-Screw_Size = 3; // Screw Size
+Screw_Size = 3.2; // Screw Size
 
 /* [Motor Plate] */
-Plate_Thickness = 5;
+Plate_Thickness = 4.5;
 Plate_Diameter = 32;
 
 /* [Arm Size] */
