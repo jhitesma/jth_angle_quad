@@ -1,7 +1,7 @@
 arm_size = 13.1;
 arm_length = 102;
 arm_distance = 60;
-arm_mount_hole_diam = 1.7;
+arm_mount_hole_diam = 1.71;
 arm_hole_from_edge = 8;
 arm_hole_distance = 10;
 wall_width = 4;
@@ -31,7 +31,7 @@ $fs=0.5;
 
         // Bottom plate
         difference() {
-            translate([0,0,-1.4]) cube([86,86,2.5],true);
+            translate([0,0,-1.6]) cube([86,86,2.5],true);
 
             // clip the corners
             for(r=[0:90:359]){
@@ -66,7 +66,7 @@ arm_mount_holes(arm_size,arm_length,arm_mount_hole_diam,arm_hole_from_edge,arm_h
 fc_mount_holes(arm_size,arm_length,arm_mount_hole_diam,arm_hole_from_edge,arm_hole_distance);
 fc_mount_curves(arm_size,arm_length,arm_mount_hole_diam,arm_hole_from_edge,arm_hole_distance);
 rotate([0,0,0]) translate([0,0,19]) color("Grey") cube([42,42,27],true);
-    translate([0,0,-7]) cube([150,150,14],true);
+    translate([0,0,-7.5]) cube([150,150,14],true);
     translate([0,0,35]) cube([200,200,30],true);
 
 }
@@ -134,7 +134,7 @@ module arm_couplers(s,l,d,ahd,ahfe,ahfed,cl,ww){
 
 module arm_coupler(s,l,d,ahd,ahfe,ahfed,r,cl,ww) {
     rotate([0,0,r])
-    translate([0,cl/2]) rotate([80,0,0]) translate([0,-s/2+ww+3.5,l/2]) cube([s+ww,s+ww+14,cl],true);
+    translate([0,cl/2]) rotate([80,0,0]) translate([0,-s/2+ww+2.8,l/2]) cube([s+ww,s+ww+14,cl],true);
 }
 
 module motor_mounts(s,l,d,ahd,ahfe,ahfed){
