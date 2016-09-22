@@ -8,8 +8,16 @@ wall_width = 4;
 coupler_length = 60;
 $fs=0.5;
 
+
+
+
+
+*translate([-5,5,23]) cam_mockup(25);
+
 // FPV POD 
+
 difference() {
+    //color ( "silver", 0.4) 
     fpv_pod();
     
     difference() {
@@ -18,7 +26,12 @@ difference() {
     }
     translate([0,0,5]) cylinder(r=30,h=41,center=true);
     translate([0,0,-5]) arm_mount_holes(arm_size,arm_length,arm_mount_hole_diam,arm_hole_from_edge,arm_hole_distance);
-    translate([-10,10,40]) rotate([90+30,0,45]) cylinder(r=6,h=40,center=true);
+
+    hull () {
+    translate([-18,18,55]) rotate([90+25,0,45]) cylinder(r=8,h=20,center=true);
+    translate([-18,18,40]) rotate([90,0,45]) cylinder(r=8,h=20,center=true);
+    }
+
     *translate([0,0,13]) arm_mount_nuts(arm_size,arm_length,arm_mount_hole_diam,arm_hole_from_edge,arm_hole_distance);
 
 }
@@ -223,4 +236,9 @@ module motor_mount(s,l,d,ahd,ahfe,ahfed,r) {
     rotate([0,-10,r]) translate([l+20,0,s-2]) rotate([0,180,0]) color("blue")
     //include<"jth_motor_mount.scad">;
     import("generated_stls/jth_2204_motor_mount.stl");
+}
+
+module cam_mockup(cr) {
+translate([6.4,-6.4,19.5]) rotate([0,0,45]) resize([29.5,0,29.5], auto=[true,true,false]) rotate([cr,0,0])import("hs1177.stl");
+rotate([90,0,45]) import("HS1177_mount.stl");
 }
