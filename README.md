@@ -13,6 +13,7 @@ Design now shared on [Thingiverse](http://www.thingiverse.com/thing:1492827) - b
 
 
 **External HS1177 models from thingiverse included for mockups:**
+
 HS1177 model from: http://www.thingiverse.com/thing:1564955 ([CC-BY](http://creativecommons.org/licenses/by/3.0/))
 
 HS1177 mount mockup from: http://www.thingiverse.com/thing:1723099 ([CC-BY-NC](http://creativecommons.org/licenses/by-nc/3.0/))
