@@ -9,3 +9,10 @@ The arms are angled 10% inwards by the printed center section.  Each 1/2" wood d
 Motor mount was [shared on Thingiverse](http://www.thingiverse.com/thing:1490002 title="Motor Mount") already.  
 
 Design now shared on [Thingiverse](http://www.thingiverse.com/thing:1492827) - but not updated as frequently as this repo.
+
+
+
+**External HS1177 models from thingiverse included for mockups:**
+HS1177 model from: http://www.thingiverse.com/thing:1564955 ([CC-BY](http://creativecommons.org/licenses/by/3.0/))
+
+HS1177 mount mockup from: http://www.thingiverse.com/thing:1723099 ([CC-BY-NC](http://creativecommons.org/licenses/by-nc/3.0/))
