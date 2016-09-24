@@ -12,14 +12,16 @@ $fs=0.5;
 
 
 
-*translate([-5,5,23]) cam_mockup(25);
+//translate([-5,5,23]) cam_mockup(45);
 
 // FPV POD 
 
 difference() {
-    //color ( "silver", 0.4) 
+    //color ( a=0.4) 
     fpv_pod();
     
+    translate([0,0,21]) cube([82,82,2.5],true);
+
     difference() {
         translate([0,0,0]) scale([0.95,0.95,0.95]) fpv_pod();
         rotate([0,0,45]) cube ([70,70,50],true); 
@@ -28,35 +30,32 @@ difference() {
     translate([0,0,-5]) arm_mount_holes(arm_size,arm_length,arm_mount_hole_diam,arm_hole_from_edge,arm_hole_distance);
 
     hull () {
-    translate([-18,18,55]) rotate([90+25,0,45]) cylinder(r=8,h=20,center=true);
-    translate([-18,18,40]) rotate([90,0,45]) cylinder(r=8,h=20,center=true);
+    translate([-15,15,63]) rotate([90+45,0,45]) cylinder(r=8,h=20,center=true);
+    translate([-18,18,50]) rotate([90+20,0,45]) cylinder(r=8,h=20,center=true);
     }
 
-    *translate([0,0,13]) arm_mount_nuts(arm_size,arm_length,arm_mount_hole_diam,arm_hole_from_edge,arm_hole_distance);
+    translate([0,0,10.5]) arm_mount_nuts(arm_size,arm_length,arm_mount_hole_diam,arm_hole_from_edge,arm_hole_distance);
 
 }
 module fpv_pod() {
  color ("orange") {
      hull() {
-         translate([0,0,50]) sphere(r=20, center=true);
+         translate([0,0,60]) sphere(r=15, center=true);
      
          rotate([0,0,45]) translate([0,0,3]) {
-            // Top plate
-            difference() {
-                translate([0,0,21]) cube([65,65,2.5],true);
-
-                // fancy top cutout
-                for(r=[0:15:359]) {
-                    rotate ([0,0,r]) translate([0,0,19]) cube([30,40,15],true);
-                }
-
-                // clip the corners
-                for(r=[0:90:359]){
-                    rotate ([0,0,r+45]) {
-                        translate([50,0,20]) cube([25,25,20],true);
-                    }
-                }
-            }
+            // base plate
+			minkowski() {
+				sphere(r=3, $fn=50);
+				difference() {
+					translate([0,0,21]) cube([65,65,.5],true);
+					// clip the corners
+					for(r=[0:90:359]){
+						rotate ([0,0,r+45]) {
+							translate([50,0,20]) cube([25,25,20],true);
+						}
+					}
+				}
+			}
         }
     }
     }
@@ -159,12 +158,10 @@ module arm_mount_holes(s,arm_length,ahd,ahfe,ahfed) {
 module arm_mount_nuts(s,arm_length,ahd,ahfe,ahfed) {
     color("Grey") for(r=[0:90:359]){
         rotate ([0,0,r]) {
-            translate ([0,(-arm_length/2+(ahfe+ahfed)),s]) cylinder(h=20, r=5.5 / 2 / cos(180 / 6) + 0.05, $fn=6);
-            translate ([0,(-arm_length/2+(ahfe+ahfed)-10),s]) cylinder(h=20, r=5.5 / 2 / cos(180 / 6) + 0.05, $fn=6);
+            translate ([0,(-arm_length/2+(ahfe+ahfed)),s]) cylinder(h=4, r=5.5 / 2 / cos(180 / 6) + 0.05, $fn=6);
+            translate ([0,(-arm_length/2+(ahfe+ahfed)-10),s]) cylinder(h=4, r=5.5 / 2 / cos(180 / 6) + 0.05, $fn=6);
         }
     }
-
-    
 }
 
 module fc_mount_holes(s,arm_length,ahd,ahfe,ahfed) {
