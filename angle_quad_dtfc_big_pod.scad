@@ -12,7 +12,7 @@ $fs=0.5;
 
 
 
-translate([-5,5,23]) cam_mockup(45);
+translate([-5,5,48]) cam_mockup(45);
 
 // FPV POD 
 
@@ -40,7 +40,7 @@ difference() {
 module fpv_pod() {
  color ("orange") {
      hull() {
-         translate([0,0,60]) sphere(r=13, center=true);
+         translate([0,0,65]) sphere(r=20, center=true);
      
          rotate([0,0,45]) translate([0,0,3]) {
             // base plate
@@ -236,6 +236,39 @@ module motor_mount(s,l,d,ahd,ahfe,ahfed,r) {
 }
 
 module cam_mockup(cr) {
-translate([6.4,-6.4,19.5]) rotate([0,0,45]) resize([29.5,0,29.5], auto=[true,true,false]) rotate([cr,0,0])import("hs1177.stl");
-rotate([90,0,45]) import("HS1177_mount.stl");
+rotate([cr,0,225]) translate([-board_w/2,-board_d/2,0])
+difference () {
+    union () {
+        // board
+        cube ([board_w,board_d,board_h]);
+        //cam_body
+        translate([(board_w-cam_w)/2,(board_d-cam_d)/2,board_h]) cube([cam_w,cam_d,cam_h]);
+        translate([board_w/2,board_d/2,board_h+cam_h+(5.5/2)]) cylinder (h=5.5, d=15.5,center=true);
+        // lock ring
+        translate([board_w/2,board_d/2,board_h+cam_h+5.5+(2.5/2)]) cylinder (h=2.5, d=15.5,center=true);
+        // lens_shaft
+        translate([board_w/2,board_d/2,board_h+cam_h+5.5+2.5+(3/2)]) cylinder (h=3, d=11.83,center=true);
+        // lens body
+        translate([board_w/2,board_d/2,board_h+cam_h+5.5+2.5+3+(3.6/2)]) cylinder (h=3.6, d=14,center=true);
+        translate([(board_w-cam_w)/2-1,(board_d-cam_d),cam_h/2+board_h]) cylinder(h=cam_h, d=5, center=true);
+        translate([(board_w-cam_w)/2+1+cam_w,(board_d-cam_d),cam_h/2+board_h]) cylinder(h=cam_h, d=5, center=true);
+    }
+    translate([3,3,2]) cylinder(d=3,h=5, center=true, $fn=50);
+    translate([board_w-3,3,2]) cylinder(d=3,h=5, center=true, $fn=50);
+    translate([3,board_d-3,2]) cylinder(d=3,h=5, center=true, $fn=50);
+    translate([board_w-3,board_d-3,2]) cylinder(d=3,h=5, center=true, $fn=50);
 }
+
+}
+
+
+
+
+board_w = 32;
+board_d = 32;
+board_h = 1.5;
+
+cam_w = 17;
+cam_d = 17;
+cam_h = 7.5;
+
