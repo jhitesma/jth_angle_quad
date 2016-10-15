@@ -8,48 +8,120 @@ wall_width = 4;
 coupler_length = 60;
 $fs=0.5;
 
+board_w = 32;
+board_d = 32;
+board_h = 1.5;
+
+cam_w = 17;
+cam_d = 17;
+cam_h = 7.5;
 
 
 
+// Camera mount
+*difference() {
+    union() {
+        difference() {
+            union() {
+                translate([-2,2,42]) rotate([45,0,45]) translate([0,1,0]) cube([35,7,35], true) {}
+                // cam mount pivot
+                translate([-2.6,2.6,45-2]) rotate([0,90,45]) cylinder(h=40,r=1.3, center=true);
+            }
 
-//translate([-5,5,23]) cam_mockup(45);
+            // Camera
+            translate([-2,2,42]) cam_mockup(45);
+            translate([-2,2,42]) rotate([-45,0,45]) translate([0,0,29]) cube([33,33,60],true);
+            translate([-2,2,42]) rotate([-45,0,45]) translate([0,0,0]) cylinder(r=15, h=20 ,center=true);
+        }
+        translate([-2.6,2.6,45-2]) cam_posts(45);
+    }
+    translate([-2.6,2.6,45-2]) cam_post_holes(45);
+}
+
+// Camera
+*translate([-2,2,42]) cam_mockup(45);
+
+// Camera Mounts
+cam_mounts(-2.6,2.6,-2);
+
 
 difference() {
 
-// FPV POD 
-union() {
-difference() {
-    //color ("red", a=0.4) 
-    fpv_pod();
-    
-    rotate([0,0,45]) translate([0,0,21]) cube([88,88,2.5],true);
-
+    // FPV POD 
     difference() {
-        translate([0,0,0]) scale([0.95,0.95,0.95]) fpv_pod();
-        rotate([0,0,45]) cube ([90,90,50],true); 
+
+    union() {
+        difference() {
+            union() {
+                difference() {
+                    fpv_pod();
+                
+                    rotate([0,0,45]) translate([0,0,21]) cube([88,88,2.5],true);
+
+                    difference() {
+                        translate([0,0,0]) scale([0.95,0.95,0.95]) fpv_pod();
+                        rotate([0,0,45]) cube ([90,90,50],true); 
+                    }
+
+                }
+                translate([0,0,25]) arm_mount_standoffs(1,arm_length,5,arm_hole_from_edge,arm_hole_distance);
+            }
+            translate([0,0,5]) cylinder(r=25,h=41,center=true);
+            translate([0,0,-5]) arm_mount_holes(arm_size,arm_length,arm_mount_hole_diam,arm_hole_from_edge,arm_hole_distance);
+
+            hull () {
+            translate([-15,15,63]) rotate([90+45,0,45]) cylinder(r=8,h=20,center=true);
+            translate([-18,18,50]) rotate([90+20,0,45]) cylinder(r=8,h=20,center=true);
+            }
+
+            translate([0,0,10.5]) arm_mount_nuts(arm_size,arm_length,arm_mount_hole_diam,arm_hole_from_edge,arm_hole_distance);
+
+        }
+
+
+
     }
-    translate([0,0,5]) cylinder(r=25,h=41,center=true);
-    translate([0,0,-5]) arm_mount_holes(arm_size,arm_length,arm_mount_hole_diam,arm_hole_from_edge,arm_hole_distance);
+        // Access Hole
+        difference() {
+            translate([-2.6,2.6,45-2]) rotate([0,90,45]) cylinder(h=70,r=3, center=true);
+            translate([-2.6,2.6,45-2]) rotate([0,90,45]) cube([10,15,44], true);
+        }
 
-    hull () {
-    translate([-15,15,63]) rotate([90+45,0,45]) cylinder(r=8,h=20,center=true);
-    translate([-18,18,50]) rotate([90+20,0,45]) cylinder(r=8,h=20,center=true);
     }
 
-    translate([0,0,10.5]) arm_mount_nuts(arm_size,arm_length,arm_mount_hole_diam,arm_hole_from_edge,arm_hole_distance);
 
 }
-    translate([-1.5,0,45]) rotate([0,90,45]) cylinder(h=60,r=5, center=true);
-}
-    translate([-1.5,0,45]) rotate([0,90,45]) cylinder(h=70,r=1.5, center=true);
-    translate([-5,5,23]) cam_mockup(45);
-    translate([-5,5,35]) rotate([0,0,45]) cube([26,26,26],true);
-}
+
+module cam_mounts(o1,o2,oz){           
+    difference() {
+        //Main support
+        hull() {
+            translate([o1,o2,45+oz]) rotate([0,90,45]) cylinder(h=40,r=5, center=true);
+            translate([o1,o2,23]) rotate([0,90,45]) cube([1,2,87] ,center=true);
+        }
+
+        // Camera
+        //translate([-5,5,53]) cam_mockup(45);
+
+        // Camera cutout
+        translate([-2,2,45+oz]) rotate([0,0,45]) cube([36,30,16],true);
+        translate([0,0,38+oz]) cylinder(r1=31,r2=8.5,h=40,center=true);
+        // cam mount screw hole
+        translate([o1,o2,45+oz]) rotate([0,90,45]) cylinder(h=70,r=1.5, center=true);
+
+        // Access Hole
+        difference() {
+            translate([o1,o2,45+oz]) rotate([0,90,45]) cylinder(h=70,r=3, center=true);
+            translate([o1,o2,45+oz]) rotate([0,90,45]) cube([10,15,44], true);
+        }
+    }
+};
+
 
 module fpv_pod() {
  color ("orange") {
      hull() {
-         translate([0,0,60]) sphere(r=13, center=true);
+         translate([-2.6,2.6,45]) sphere(r=25, center=true);
      
          rotate([0,0,45]) translate([0,0,3]) {
             // base plate
@@ -155,6 +227,17 @@ fc_mount_holes(arm_size,arm_length,arm_mount_hole_diam,arm_hole_from_edge,arm_ho
 *color("Green", 0.4) translate ([0,0,11]) rotate ([0,0,45]) cube([30.5,30.5,2],true);
 
 
+module arm_mount_standoffs(s,arm_length,ahd,ahfe,ahfed) {
+    color("Grey") for(r=[0:90:359]){
+        rotate ([0,0,r]) {
+            hull() {
+            translate ([0,(-arm_length/2+(ahfe+ahfed)),s]) cylinder(s*3+.02,ahd,ahd,true);
+            translate ([0,(-arm_length/2+(ahfe+ahfed)-10),s]) cylinder(s*3+.02,ahd,ahd,true);
+            }
+        }
+    }
+}
+
 module arm_mount_holes(s,arm_length,ahd,ahfe,ahfed) {
     color("Grey") for(r=[0:90:359]){
         rotate ([0,0,r]) {
@@ -245,6 +328,50 @@ module motor_mount(s,l,d,ahd,ahfe,ahfed,r) {
 }
 
 module cam_mockup(cr) {
-translate([6.4,-6.4,19.5]) rotate([0,0,45]) resize([29.5,0,29.5], auto=[true,true,false]) rotate([cr,0,0])import("hs1177.stl");
+    rotate([-cr,0,45])
+    translate([-(board_w/2),-(board_d/2),0]) 
+difference () {
+    union () {
+        // board
+        cube ([board_w,board_d,board_h]);
+        //cam_body
+        translate([(board_w-cam_w)/2,(board_d-cam_d)/2,board_h]) cube([cam_w,cam_d,cam_h]);
+        translate([board_w/2,board_d/2,board_h+cam_h+(5.5/2)]) cylinder (h=5.5, d=15.5,center=true);
+        // lock ring
+        translate([board_w/2,board_d/2,board_h+cam_h+5.5+(2.5/2)]) cylinder (h=2.5, d=15.5,center=true);
+        // lens_shaft
+        translate([board_w/2,board_d/2,board_h+cam_h+5.5+2.5+(3/2)]) cylinder (h=3, d=11.83,center=true);
+        // lens body
+        translate([board_w/2,board_d/2,board_h+cam_h+5.5+2.5+3+(3.6/2)]) cylinder (h=3.6, d=14,center=true);
+        translate([(board_w-cam_w)/2-1,(board_d-cam_d),cam_h/2+board_h]) cylinder(h=cam_h, d=5, center=true);
+        translate([(board_w-cam_w)/2+1+cam_w,(board_d-cam_d),cam_h/2+board_h]) cylinder(h=cam_h, d=5, center=true);
+    }
+    translate([3,3,2]) cylinder(d=3,h=5, center=true, $fn=50);
+    translate([board_w-3,3,2]) cylinder(d=3,h=5, center=true, $fn=50);
+    translate([3,board_d-3,2]) cylinder(d=3,h=5, center=true, $fn=50);
+    translate([board_w-3,board_d-3,2]) cylinder(d=3,h=5, center=true, $fn=50);
+}
+//translate([6.4,-6.4,19.5]) rotate([0,0,45]) resize([29.5,0,29.5], auto=[true,true,false]) rotate([cr,0,0])import("hs1177.stl");
 //rotate([90,0,45]) import("HS1177_mount.stl");
+}
+
+module cam_posts(cr) {    
+    rotate([-cr,0,45])
+    translate([-(board_w/2),-(board_d/2),-4]) {
+        translate([3,3,2]) cylinder(d=4,h=2, center=true, $fn=50);
+        translate([board_w-3,3,2]) cylinder(d=4,h=2, center=true, $fn=50);
+        translate([3,board_d-3,2]) cylinder(d=4,h=2, center=true, $fn=50);
+        translate([board_w-3,board_d-3,2]) cylinder(d=4,h=2, center=true, $fn=50);
+    }
+}
+
+
+module cam_post_holes(cr) {    
+    rotate([-cr,0,45])
+    translate([-(board_w/2),-(board_d/2),-4]) {
+        translate([3,3,2]) cylinder(d=2,h=5, center=true, $fn=50);
+        translate([board_w-3,3,2]) cylinder(d=2,h=5, center=true, $fn=50);
+        translate([3,board_d-3,2]) cylinder(d=2,h=5, center=true, $fn=50);
+        translate([board_w-3,board_d-3,2]) cylinder(d=2,h=5, center=true, $fn=50);
+    }
 }
