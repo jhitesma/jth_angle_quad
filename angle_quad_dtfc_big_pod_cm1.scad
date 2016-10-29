@@ -83,7 +83,7 @@ difference() {
     }
         // Access Hole
         difference() {
-            translate([-2.6,2.6,45-2]) rotate([0,90,45]) cylinder(h=70,r=3, center=true);
+            translate([-2.6,2.6,45-2]) rotate([0,90,45]) cylinder(h=75,r=3, center=true);
             translate([-2.6,2.6,45-2]) rotate([0,90,45]) cube([10,15,44], true);
         }
 
@@ -121,8 +121,10 @@ module cam_mounts(o1,o2,oz){
 module fpv_pod() {
  color ("orange") {
      hull() {
-         translate([-2.6,2.6,45]) sphere(r=25, center=true);
-     
+         difference() {
+         translate([4,-4,45]) sphere(r=30, center=true);
+         translate([0,0,10]) rotate([0,0,45]) cube([80,80,22],true);
+         }
          rotate([0,0,45]) translate([0,0,3]) {
             // base plate
 			minkowski() {
